@@ -1,0 +1,22 @@
+class Solution {
+    public int removeDuplicates(int[] nums) {
+        int l = nums.length;
+        if(l == 1) return 1;
+        int pos = 1;
+        //getting first repeat
+        while(pos < l && (nums[pos - 1] != nums [pos]) ){
+            pos++;
+        }
+        if (pos == l) return l;
+
+        int itr = pos + 1;
+        while(itr < l){
+            if(nums[itr - 1] != nums[itr]){
+                nums[pos] = nums[itr];
+                pos++;
+            }
+            itr++;
+        }
+        return pos;
+    }
+}

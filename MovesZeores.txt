@@ -1,0 +1,21 @@
+class Solution {//O(N)
+    public void moveZeroes(int[] nums) {
+        int l = nums.length;
+        //simulation
+        int pos = 0;
+        //getting fist zero
+        while(pos < l && (nums[pos] != 0))
+        pos++;
+
+        int itr = pos + 1;
+        while(itr < l){
+            if(nums[itr] != 0)
+            {
+                nums[pos] = nums[itr];
+                nums[itr] = 0;
+                pos++;
+            }
+            itr++;
+        }
+    }
+}
