@@ -1,0 +1,19 @@
+class Solution {
+    public int maxProfit(int[] prices) {
+        int l = prices.length;
+        int max[] = new int[l];
+        max[l-1] = prices[l-1]; // Max prize to sell in future
+        for(int i = l - 2; i >= 0; i--){
+           max[i] = Math.max(prices[i],max[i+1]); 
+        }
+
+        int profit = 0;
+        int ans = 0;
+        for(int i = 0; i< l;i++){
+            profit = max[i] - prices[i];
+            ans = Math.max(profit,ans);
+        }
+        return ans;
+
+    }
+}

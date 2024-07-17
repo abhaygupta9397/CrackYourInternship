@@ -1,0 +1,19 @@
+class Solution { // O(N) - Time
+    public int[] twoSum(int[] nums, int target) {
+        int l = nums.length;
+        int ans[] = new int[2];
+        //Recall table - O(1) - Time
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int i = 0; i < l; i++){
+            int find = target - nums[i];
+            if(map.containsKey(find)){
+               ans[0] = map.get(find);
+               ans[1] = i;
+               return ans;
+            } 
+            map.put(nums[i],i);
+
+        }
+        return ans;
+    }
+}

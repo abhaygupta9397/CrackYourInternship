@@ -1,0 +1,20 @@
+class Solution {
+    public int[] distributeCandies(int candies, int num_people) {
+         int itr = 0;
+         int c = 1;
+         int ans[] = new int[num_people];
+         while(true){
+            if(c < candies)
+            ans[itr] += c;
+            else{
+                ans[itr] += candies;
+                break;
+            }
+            itr++;
+            itr %= num_people;
+            candies -= c;
+            c++;
+         }
+         return ans;
+    }
+}
