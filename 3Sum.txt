@@ -1,0 +1,45 @@
+class Solution {
+    public List<List<Integer>> threeSum(int[] nums) {
+        Arrays.sort(nums); // only elem is needed no need of index
+        List<List<Integer>> ans = new ArrayList<>();
+        int l = nums.length;
+        // fix the element
+        // a+b+c = 0 is like two sum : a + b = -c so we can find c in rest of the array
+        for (int i = 0; i < l - 2;) {
+            int target = nums[i];
+            twoSum(nums, i + 1, l - 1, -1 * target, ans);
+            i++;
+            while (i < l && nums[i - 1] == nums[i])
+                i++; // to avoid the repeation
+
+        }
+
+        return ans;
+    }
+
+    void twoSum(int nums[], int s, int e, int target, List<List<Integer>> ans) {
+
+        while (s < e) {
+            int sum = nums[s] + nums[e];
+            if (sum == target) {
+                List<Integer> li = new ArrayList<>();
+                li.add(-1 * target);
+                li.add(nums[s]);
+                li.add(nums[e]);
+                ans.add(li);
+                s++;
+                e--;  
+                //neglect the duplicate elems
+                while(s < e && nums[s - 1] == nums[s] ) s++;
+                while(s < e && nums[e + 1] == nums[e] ) e--;
+
+            }
+
+            else if (sum < target)
+                s++;
+            else
+                e--;
+        }
+
+    }
+}

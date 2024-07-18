@@ -1,0 +1,22 @@
+class Solution {
+    public int maxScore(int[] cardPoints, int k) {
+        int l = cardPoints.length;
+        // we can find the sliding window of l - k which is minimum
+        int sum = 0;
+        for (int x : cardPoints)
+        sum += x;
+        int min = 0;
+        int len = l - k;
+        for(int i = 0; i < len; i++)
+        min += cardPoints[i];
+
+        int ans = min;
+        int i = len;
+        while(i < l){
+        min += (cardPoints[i] - cardPoints[i - len]); 
+        ans = Math.min(ans,min);
+        i++;
+        }
+        return sum - ans;
+    }
+}

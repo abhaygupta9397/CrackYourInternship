@@ -1,0 +1,16 @@
+class Solution {// O(N) - TIME
+    public int maxArea(int[] height) {
+        int p = 0;
+        int q = height.length - 1;
+        int ans = 0;
+        while(p <= q){
+            int water = Math.min(height[p],height[q]) * (q - p);
+            ans = Math.max(ans,water);
+            if(height[p] <= height[q])
+            p++;
+            else
+            q--;
+        }
+        return ans;
+    }
+}

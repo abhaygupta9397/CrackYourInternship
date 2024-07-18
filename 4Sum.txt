@@ -1,0 +1,42 @@
+class Solution {
+    public List<List<Integer>> fourSum(int[] nums, int target) {
+        int l = nums.length;
+        Arrays.sort(nums);
+     List<List<Integer>> ans=new ArrayList<>();  
+     for(int i = 0; i < l; i++){ 
+        if(i > 0 && nums[i-1] == nums[i]) continue;
+        for(int j = i+1; j < l;j++){
+            if(j>i+1 && nums[j-1] == nums[j]) continue;
+            int p1 = j+1;
+            int p2 = l-1;
+                long sum = nums[i] + nums[j];
+            while(p1 < p2){
+                if((target - sum) == ((long)nums[p1] + nums[p2])){
+                    List<Integer> li = new ArrayList<>();
+                    li.add(nums[i]);
+                    li.add(nums[j]);
+                    li.add(nums[p1]);
+                    li.add(nums[p2]);
+                    ans.add(li);
+                     
+                    p1++; p2--;
+                    while(p1 < p2 && nums[p1 -1] == nums[p1])  p1++;
+                    while(p1 < p2 && nums[p2 + 1] == nums[p2]) p2--;
+
+                }
+                else if((target - sum) < ((long)nums[p1] + nums[p2]))
+                p2--;
+                else
+                p1++;
+            }
+        }
+
+     } 
+    return ans;   
+    }
+}
+
+//long story short 
+//we can sort the array since index has no role to play
+// fix two elements
+//search for the pair such that target - fixed elem sum == pair sum
