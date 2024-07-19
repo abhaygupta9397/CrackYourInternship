@@ -1,0 +1,18 @@
+class Solution {
+    public int subarraySum(int[] nums, int k) {
+        int l = nums.length;
+        int count = 0;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        map.put(0, 1);
+        for (int i = 0; i < l; i++) {
+            if (i != 0)
+                nums[i] = nums[i - 1] + nums[i]; // prefix sum
+
+            count += map.getOrDefault(nums[i] - k, 0); // number to subtract
+
+            map.put(nums[i], map.getOrDefault(nums[i], 0) + 1);
+
+        }
+        return count;
+    }
+}
