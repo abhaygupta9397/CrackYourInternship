@@ -1,0 +1,20 @@
+class Solution {
+    public int minMoves2(int[] nums) {
+        Arrays.sort(nums);
+        int l = nums.length-1;
+        if(l % 2 == 0)
+        return find(nums,l/2);
+        else
+        return Math.min(find(nums,l/2),find(nums,(l/2)+1));
+        
+    }
+    int find(int nums[],int indx){
+        int count = 0;
+        for(int i = 0; i < nums.length;i++)
+        {
+             if(i != indx)
+             count += Math.abs(nums[i] - nums[indx]);
+        }
+        return count;
+    }
+}
