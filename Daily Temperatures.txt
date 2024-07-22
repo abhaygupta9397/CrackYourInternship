@@ -1,0 +1,18 @@
+class Solution {
+    public int[] dailyTemperatures(int[] temperatures) {
+        //Deque<Integer> stk = new ArrayDeque<>(); // they say it is better - ME:I don't know, Let me use it Well it is
+        Stack<Integer> stk = new Stack<>();
+        int l = temperatures.length;
+        int ans[] = new int[l];
+        for (int i = l - 1; i >= 0; i--) {
+            while (!stk.isEmpty() && temperatures[i] >= temperatures[stk.peek()])
+                stk.pop();
+
+            if (!stk.isEmpty())
+                ans[i] = stk.peek() - i;
+
+            stk.push(i);
+        }
+        return ans;
+    }
+}

@@ -1,0 +1,43 @@
+class MyQueue {
+    Deque<Integer> stk = new ArrayDeque<>();
+    public MyQueue() {
+        
+    }
+    
+    public void push(int x) {
+        stk.push(x);
+    }
+    
+    public int pop() {
+        Deque<Integer> stk2 = new ArrayDeque<>();
+        while(!stk.isEmpty())
+        stk2.push(stk.pop());
+
+        int ans = stk2.pop(); 
+
+        while(!stk2.isEmpty())
+        stk.push(stk2.pop());
+
+        return ans;
+    }
+    
+    public int peek() {
+        Deque<Integer> stk2 = new ArrayDeque<>();
+        while(!stk.isEmpty())
+        stk2.push(stk.pop());
+
+        int ans = stk2.peek();
+
+        while(!stk2.isEmpty())
+        stk.push(stk2.pop());
+
+        return ans;
+    }
+    
+    public boolean empty() {
+        if(stk.isEmpty()) 
+        return true;
+
+        return false;
+    }
+}
