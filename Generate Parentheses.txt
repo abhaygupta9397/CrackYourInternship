@@ -1,0 +1,40 @@
+class Solution {
+    public List<String> generateParenthesis(int n) {
+    List<String> ans = new ArrayList<>();
+        String st = "";
+        backtracking(st,n,0,ans);
+        return ans;
+        
+    }
+    public void backtracking(String st , int n , int len,List<String> ans){
+        if(len == 2*n){
+            if(isValid(st)){
+                ans.add(st);
+            }
+            return;
+        }
+
+        st += '(';
+        backtracking(st,n,len+1,ans);
+        st = st.substring(0,st.length()-1);
+
+        st +=')';
+        backtracking(st,n,len+1,ans);
+        st = st.substring(0,st.length()-1);
+
+    }
+    public boolean isValid(String st){
+        int count = 0;
+        for(char ch : st.toCharArray()){
+            if(ch == '(')
+            count++;
+            else
+            count--;
+
+            if(count < 0) return false;
+        }
+        
+        return count == 0;
+        
+    }
+}

@@ -1,0 +1,26 @@
+class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
+
+    public List<List<Integer>> combine(int n, int k) {
+        List<Integer> li = new ArrayList<>();
+        helper(n,k,0,li);
+        return ans;
+    }
+    void helper(int n , int k,int ptr , List<Integer>li){
+        if(li.size() == k)
+       { ans.add(new ArrayList<>(li));return;}
+
+        for(int i = 1; i <= n; i++){
+            if(li.contains(i)) continue;
+            if(li.size() > 0){
+                if(li.get(li.size()-1) >= i)
+                continue; 
+            }
+
+            li.add(i);
+            helper(n,k,i,li);
+            li.remove(li.size()-1);
+
+        }
+    }
+}

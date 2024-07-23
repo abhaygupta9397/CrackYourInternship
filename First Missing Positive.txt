@@ -1,0 +1,36 @@
+class Solution {
+    public int firstMissingPositive(int[] nums) {
+        int l = nums.length;
+        //hunting for 1
+        boolean test1 = false;
+        for(int x : nums)
+        {
+            if(x == 1)
+            {test1 = true;
+             break;
+            }
+        }
+        if(test1 == false) return 1;
+
+        //now dharm parivartan of -ves and 0 and beyond l
+        for(int i = 0; i < l;i++){
+            if(nums[i] < 1 || nums[i] > l)
+            nums[i] = 1;
+        }
+
+        //simple approach now just like duplicate in an array
+        for(int i = 0; i < l; i++){
+            int num = Math.abs(nums[i]);
+            int indx = num - 1;
+
+            if(nums[indx] > 0) nums[indx] *= -1;
+        }
+
+        for(int i = 0; i < l; i++){
+            if(nums[i] > 0)
+            return i + 1;
+        }
+        return l + 1;
+
+    }
+}
