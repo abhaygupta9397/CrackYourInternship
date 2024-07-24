@@ -1,0 +1,36 @@
+class Solution {
+    public int calculate(String s) {
+        int l = s.length();
+        Deque<Integer> stk = new ArrayDeque<>();
+        int num = 0;
+        char sign = '+';
+        for(int i = 0; i < l; i++){
+            char ch = s.charAt(i);
+            
+            if(Character.isDigit(ch)){
+                num = num * 10 + ch - '0';
+            }
+            if (!Character.isDigit(ch) && ch != ' ' || i == l - 1){
+                if(sign == '-')
+                stk.push(-num);
+                if(sign == '+')
+                stk.push(num);
+                if(sign == '*')
+                stk.push(stk.pop()*num);
+                if(sign == '/')
+                stk.push(stk.pop()/num);
+
+                sign = ch;
+                num = 0;
+            }
+            
+        }
+        
+        int ans = 0;
+        // Process the operators in the correct order
+        while (!stk.isEmpty()) 
+            ans += stk.pop();
+        return ans;
+
+    }
+}

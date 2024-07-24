@@ -1,0 +1,18 @@
+class Solution {
+    public int findMaxValueOfEquation(int[][] points, int k) {
+        int l = points.length;
+        int ans = Integer.MIN_VALUE;
+        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue<>((a, b) -> b.getKey() - a.getKey());// camparator concept
+        for (int i = 0; i < l; i++) {
+            // removing the useless ones |xi - xj| > k
+            while (!pq.isEmpty() && points[i][0] - pq.peek().getValue() > k)
+                pq.poll();
+            // ans may update
+            if (!pq.isEmpty())
+                ans = Math.max(ans, pq.peek().getKey() + points[i][0] + points[i][1]);
+            // add dif , xi - for future reference
+            pq.add(new Pair<>(points[i][1] - points[i][0], points[i][0]));
+        }
+        return ans; // got the maximum of the eqn
+    }
+}
