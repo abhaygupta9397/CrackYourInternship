@@ -1,0 +1,11 @@
+class Solution {//O(N*L+log(K))
+    public int findKthLargest(int[] nums, int k) {
+        PriorityQueue<Integer> pq = new PriorityQueue<>(); // min - heap : Always min at the top
+        for(int x : nums){
+            pq.offer(x); // O(log K)
+            if(pq.size() > k)
+            pq.poll(); //
+        }
+        return pq.peek(); // kth largest is min for top k elements
+    }
+}

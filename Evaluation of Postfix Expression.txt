@@ -1,0 +1,22 @@
+class Solution
+{
+    //Function to evaluate a postfix expression.
+    public static int evaluatePostFix(String S)
+    {
+        // Your code here
+        Stack<Integer> stk = new Stack<>();
+        for(char ch : S.toCharArray()){
+            if(Character.isDigit(ch))
+            stk.push(ch - '0');
+            else{
+                int b = stk.pop();
+                int a = stk.pop();
+                if(ch == '+') stk.push(a+b);
+                if(ch == '-') stk.push(a-b);
+                if(ch == '*') stk.push(a*b);
+                if(ch == '/') stk.push(a/b);
+            }
+        }
+        return stk.pop();
+    }
+}
