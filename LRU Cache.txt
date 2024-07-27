@@ -1,0 +1,41 @@
+class LRUCache {
+    HashMap<Integer, Integer> map;
+    Queue<Integer> q;
+    Set<Integer> set;
+    int l;
+
+    public LRUCache(int capacity) {
+        l = capacity;
+        map = new HashMap<>(); // store all key - values
+        q = new LinkedList<>(); // keep LRU - k logs
+        set = new HashSet<>(); // O(1) - Query
+    }
+
+    public int get(int key) {
+        if (set.contains(key)) {
+            q.remove(Integer.valueOf(key)); // remove it
+            q.add(key); // keep it at the end(top)
+            return map.get(key);
+        }
+        return -1;
+    }
+
+    public void put(int key, int value) {
+        map.put(key, value);
+
+        if (set.contains(key))
+            q.remove(Integer.valueOf(key)); // remove it
+
+        q.add(key); // put it at TOP
+        set.add(key);
+        if (q.size() > l)
+            set.remove(q.poll()); // removes LRU
+    }
+}
+
+/**
+ * Your LRUCache object will be instantiated and called as such:
+ * LRUCache obj = new LRUCache(capacity);
+ * int param_1 = obj.get(key);
+ * obj.put(key,value);
+ */

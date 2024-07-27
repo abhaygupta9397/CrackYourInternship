@@ -1,0 +1,70 @@
+class Solution
+{
+    //Function to find minimum time required to rot all oranges. 
+    public int orangesRotting(int[][] grid)
+    {
+        // Code here
+        int n = grid.length;
+        int m = grid[0].length;
+        int good = 0;
+        int prev = 0;
+        int  t = 0;
+        
+        int rotten[][] = new int[n][m];
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m;j++){
+                if(grid[i][j] == 1) 
+                good++;
+                else if (grid[i][j] == 2)
+                rotten[i][j] = 2;
+            }
+        }
+        // basic things are set up
+        if(good == 0) return t;
+        while(true){
+            prev = good;
+                t++;
+          for(int i = 0; i < n; i++){
+            for(int j = 0; j < m;j++){
+                if(grid[i][j] == 1) 
+                {
+                    if(i-1 >= 0 && rotten[i-1][j] == 2){
+                        grid[i][j] = 2;
+                        // rotten[i][j] = 2;
+                        good--;
+                    }
+                    else if(i+1 < n && rotten[i+1][j] == 2){
+                        grid[i][j] = 2;
+                        // rotten[i][j] = 2;
+                        good--;
+                    }
+                    else if(j-1 >= 0 && rotten[i][j-1] == 2){
+                        grid[i][j] = 2;
+                        // rotten[i][j] = 2;
+                        good--;
+                    }
+                    else if(j+1 < m && rotten[i][j+1] == 2){
+                        grid[i][j] = 2;
+                        // rotten[i][j] = 2;
+                        good--;
+                    }
+                    if(good == 0) return t;
+                }
+                
+            }
+        } 
+        //System.out.println(Arrays.toString(rotten[3]));
+        //System.out.println(good);
+        if(prev == good) return -1;
+        //prev = good;
+        //copy new 2 to rooten now
+        for(int i = 0; i < n; i++){
+            for(int j = 0; j < m;j++){
+                
+               if (grid[i][j] == 2)
+                rotten[i][j] = 2;
+            }
+        }
+        }
+    }
+}
