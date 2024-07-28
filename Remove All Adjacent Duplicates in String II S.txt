@@ -1,0 +1,25 @@
+class Solution {
+    public String removeDuplicates(String s, int k) {
+      Deque<Character>stk1 = new ArrayDeque<>(); // char
+      Deque<Integer>stk2 = new ArrayDeque<>();   // count
+      for(char ch : s.toCharArray()){
+        if(!stk1.isEmpty() && stk1.peek() == ch)
+        stk2.push(stk2.peek()+1); // running sum a a a a | 1 2 3 4
+        else
+        stk2.push(1); // new one
+
+        stk1.push(ch);
+        if(stk2.peek() == k){
+            for(int i = 0; i < k;i++){
+                stk1.pop();
+                stk2.pop();
+            }
+        }
+      }
+      StringBuilder sb = new StringBuilder();
+      while(!stk1.isEmpty())
+      sb.append(stk1.pop());
+
+      return sb.reverse().toString();  
+    }
+}

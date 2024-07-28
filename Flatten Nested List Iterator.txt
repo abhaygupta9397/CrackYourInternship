@@ -1,0 +1,28 @@
+
+public class NestedIterator implements Iterator<Integer> {
+    Deque<NestedInteger> stk = new  ArrayDeque<>();
+    public NestedIterator(List<NestedInteger> nestedList) {
+        prepareStack(nestedList);  
+    }
+
+    @Override
+    public Integer next() {
+        if(!hasNext())
+        return null;
+        return stk.pop().getInteger();
+    }
+
+    @Override
+    public boolean hasNext() {
+        while(!stk.isEmpty()&&!stk.peek().isInteger()){
+            List<NestedInteger> li = stk.pop().getList();
+            prepareStack(li);
+        }
+        return !stk.isEmpty();
+    }
+private void prepareStack(List<NestedInteger>li){
+    for(int i = li.size()-1;i>= 0;i--)
+    stk.push(li.get(i));
+}
+}
+
