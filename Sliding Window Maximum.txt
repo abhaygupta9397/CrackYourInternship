@@ -1,0 +1,22 @@
+class Solution {//Concept of monotonic queue
+    public int[] maxSlidingWindow(int[] nums, int k) {
+        int l = nums.length;
+        Deque<Integer>q = new LinkedList<>();
+        int ans[] = new int[l-k+1];
+        int p = 0;
+        for(int i = 0; i < l; i++){
+            //remove not in window now index
+            while(!q.isEmpty() && q.peekFirst() <= i - k)
+            q.removeFirst();
+            // remove from end index who are smaller then curren index value
+            while(!q.isEmpty() && nums[i] > nums[q.peekLast()])
+            q.removeLast();
+            // add current index
+            q.addLast(i);
+            // window size is complete pick from the front of the queue
+            if(i >= k - 1)
+            ans[p++] = nums[q.peekFirst()];
+        }
+        return ans;
+    }
+}

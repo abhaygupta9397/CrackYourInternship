@@ -1,0 +1,174 @@
+
+geeksforgeeks
+19
+A
+My Profile
+My Courses
+Leaderboard
+Explore Community
+Transaction History
+Saved Videos
+Edit Profile
+Logout
+Courses
+Go Premium
+DSA to Development
+Newly Launched!
+For Working Professionals
+For Students
+GATE Exam Courses
+All Courses
+Tutorials
+Go Premium
+Data Structures & Algorithms
+Python
+ML & Data Science
+System Design
+Interview Corner
+Languages
+Web Development
+CS Subjects
+DevOps And Linux
+School Learning
+GATE
+GeeksforGeeks Videos
+Jobs
+Get Hired: Apply for Jobs
+Corporate Hiring Solutions
+Filtered Jobs
+Practice
+Go Premium
+All DSA Problems
+Problem of the Day
+Company Wise Coding Practice
+GfG SDE Sheet
+Practice Problems Difficulty Wise
+Language Wise Coding Practice
+Curated DSA Lists
+Contests
+Job-A-Thon Hiring Challenge
+GfG Weekly [Rated Contest]
+All Contests and Events
+
+
+Change Language
+Menu
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Refresh
+
+Time (IST)	Status	Marks	Lang	Test Cases	Code
+2024-08-01 01:05:12	Correct	
+4
+java	1115 / 1115	View
+2024-08-01 01:03:33	Wrong	
+0
+java	0 / 1115	View
+2024-08-01 00:12:56	Wrong	
+0
+java	0 / 1115	View
+
+
+// User function Template for Java
+
+/*
+class Node{
+    int data;
+    Node next;
+
+    Node(int x){
+        data = x;
+        next = null;
+    }
+}
+*/
+
+class Solution {
+    Node divide(Node head) {
+        // code here
+        Node even = new Node(-2);
+        Node odd = new Node(-1);
+        Node keep2 = even;
+        Node keep1 = odd;
+        Node itr = head;
+        while(itr != null){
+            Node save = itr.next;
+            itr.next = null; 
+            if(itr.data % 2 == 0)
+            {even.next = itr;
+    
+             even = even.next;
+            }
+            else
+            {
+                odd.next = itr;
+                odd = odd.next;
+             
+            }
+            itr = save;
+        }
+        even.next = keep1.next;
+        return keep2.next;
+        
+    }
+}
