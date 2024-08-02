@@ -1,0 +1,37 @@
+class Solution {
+    // Function to flatten a linked list
+    Node flatten(Node root) {
+        // code here
+        if(root == null) return null;
+        Node root2 = flatten(root.next);
+        return mergeList(root,root2);
+    }
+    Node mergeList(Node list1 , Node list2){
+        Node ans = new Node(-1);
+        Node temp = ans;
+        while(list1 != null && list2 != null){
+            if(list1.data <= list2.data)
+            {
+                Node save = list1.bottom;
+                ans.bottom = list1;
+                list1.bottom = null;
+                list1 = save;
+            }
+            else{
+                Node save = list2.bottom;
+                ans.bottom = list2;
+                list2.bottom = null;
+                list2 = save;
+            }
+            ans = ans.bottom;
+
+        }
+        if(list1 != null){
+           ans.bottom = list1;
+        }
+        else if(list2 != null){
+            ans.bottom = list2;
+        }
+        return temp.bottom;
+    }
+}

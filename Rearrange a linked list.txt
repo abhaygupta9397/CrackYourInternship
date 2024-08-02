@@ -1,0 +1,21 @@
+class Solution {
+
+    // Should rearrange given linked list such that all even
+    // positioned Nodes are before odd positioned.
+    // Returns nothing
+    void rearrangeEvenOdd(Node head) {
+        //  The task is to complete this method
+        Node l1 = head; // for odd index nodes
+        Node l2 = head.next; // for even index nodes
+        Node temp = l2; 
+        
+        while(l2 != null && l2.next != null){
+            l1.next = l2.next;
+            l1=l1.next;
+            l2.next = l1.next;
+            l2 = l2.next;
+        }
+        l1.next = temp;
+       // return head;
+    }
+}
