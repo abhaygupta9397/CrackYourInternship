@@ -1,0 +1,54 @@
+class Solution {
+    public int search(int[] nums, int target) {
+        if(target == nums[0]) return 0;
+        if(target == nums[nums.length-1]) return nums.length - 1;
+        if(target > nums[0])
+        return bsg(nums,target);
+        else
+        return bss(nums,target);
+       
+    }
+    int bsg(int nums[] , int key){
+        int s = 0;
+        int e = nums.length - 1;
+        int mid = s + (e - s) / 2;
+        int ans = -1;
+        while(s <= e){
+            mid = s + (e - s) / 2;
+            if(nums[mid] == key)
+            return mid;
+            if(nums[mid] < nums[0])
+            {
+                e = mid - 1 ;
+                continue;
+            }
+            if(nums[mid] < key)
+            s = mid + 1;
+            if(nums[mid] > key)
+            e = mid - 1;
+        }
+        return -1;
+    }
+
+    int bss(int nums[] , int key){
+        int s = 0;
+        int e = nums.length - 1;
+        int mid = s + (e - s) / 2;
+        int ans = -1;
+        while(s <= e){
+            mid = s + (e - s) / 2;
+            if(nums[mid] == key)
+            return mid;
+            if(nums[mid] > nums[nums.length - 1])
+            {
+                s = mid + 1;
+                continue;
+            }
+            if(nums[mid] < key)
+            s = mid + 1;
+            if(nums[mid] > key)
+            e = mid - 1;
+        }
+        return -1;
+    }
+}
