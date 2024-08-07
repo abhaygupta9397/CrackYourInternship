@@ -1,0 +1,28 @@
+class Solution {
+    public int[] mostCompetitive(int[] nums, int k) {
+        // monotonic increasing stack
+        int ans[] = new int[k];
+        Deque<Integer> stk = new ArrayDeque<>();
+        for (int i = 0; i < nums.length; i++) {
+            int x = nums[i];
+            if (stk.isEmpty()) {
+                stk.push(x);
+                continue;
+            }
+            while (!stk.isEmpty() && stk.peek() > x && i < nums.length + stk.size() - k)
+                stk.pop();
+
+            stk.push(x);
+        }
+
+        Deque<Integer> ans_stk = new ArrayDeque<>();
+        while (!stk.isEmpty())
+            ans_stk.push(stk.pop());
+
+        int i = 0;
+        while (i != k)
+            ans[i++] = ans_stk.pop();
+
+        return ans;
+    }
+}

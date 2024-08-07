@@ -1,0 +1,56 @@
+class Solution {
+    public String reorganizeString(String s) {
+        HashMap<Character,Integer> map = new HashMap<>();
+        for(char ch : s.toCharArray()){
+            map.put(ch,map.getOrDefault(ch,0)+1);
+        }
+
+        PriorityQueue<Pair> pq = new PriorityQueue<>((a,b)-> b.fre - a.fre);
+        StringBuilder ans = new StringBuilder();
+        for(Map.Entry<Character,Integer> entry : map.entrySet()){
+            pq.offer(new Pair(entry.getKey(),entry.getValue()));
+        }
+        
+        Pair prev = new Pair('$',-1);
+
+        while(!pq.isEmpty()){
+            Pair curr = pq.poll();
+            ans.append(curr.ch);
+
+            if(prev.fre>0)
+            pq.offer(prev);
+
+            curr.fre--;
+            prev = curr;
+        }
+
+        if(ans.length() == s.length())
+        return ans.toString();
+        //end up the alloted space to make the string non consecutive
+        return "";
+
+
+        
+    }
+    class Pair{
+        int fre ;
+        char ch ;
+        public Pair(char c , int f){
+            this.fre = f;
+            this.ch = c;
+        }
+    }
+}
+//thought process 
+// keep the frequency of character of string in hashmap
+// create a max heap of pair the based on the fre
+// pair is of char and int 
+// insert all pairs in pq
+// take the top pair and append the char to the string builder ans 
+// decrement the its fre
+// if previous pair has fre more than 1
+// insert it to the heap
+
+// when you are out of the loop check if string builder is of same length as of the input string 
+// if yes return its string version 
+// else ""

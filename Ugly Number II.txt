@@ -1,0 +1,31 @@
+class Solution {
+    public int nthUglyNumber(int n) {
+        //dp solution 
+        int ans[] = new int[n+1];
+        int i5 = 1;
+        int i2 = 1;
+        int i3 = 1;
+        ans[1] = 1;
+        for(int i = 2; i <= n; i++){
+            //three next possible value generation
+            int value2 = ans[i2]*2;
+            int value3 = ans[i3]*3;
+            int value5 = ans[i5]*5;
+            //my ans is min of all possible
+            int min = Math.min(value2,value3);
+            min = Math.min(min,value5);
+            //set this answer
+            ans[i] = min;
+            //move the pointers ahead if found not using else because we want to remove duplicates is well
+            if(value2 == min)
+            i2++;
+
+            if(value3 == min)
+            i3++;
+
+            if(value5 == min)
+            i5++; 
+        }
+        return ans[n];
+    }
+}
