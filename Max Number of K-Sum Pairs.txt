@@ -1,0 +1,31 @@
+class Solution {
+    public int maxOperations(int[] nums, int k) {
+        int l = nums.length;
+        HashMap<Integer, Integer> map = new HashMap<>();
+        for (int x : nums)
+            map.put(x, map.getOrDefault(x, 0) + 1);
+
+        int count = 0;
+        for (int x : nums) {
+            if (!map.containsKey(x))
+                continue;
+            map.put(x, map.get(x) - 1);
+
+            int search = k - x;
+            if (map.containsKey(search) && map.get(search)> 0) {
+                count++;
+                map.put(search, map.get(search) - 1);
+                if (map.get(search) == 0)
+                    map.remove(search);
+            } else {
+                map.put(x, map.get(x) + 1);
+            }
+
+            // remove from map if fre = 0
+            if (map.containsKey(x) && map.get(x) == 0)
+                map.remove(x);
+
+        }
+        return count;
+    }
+}
