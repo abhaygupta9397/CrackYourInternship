@@ -1,0 +1,53 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ * int val;
+ * TreeNode left;
+ * TreeNode right;
+ * TreeNode() {}
+ * TreeNode(int val) { this.val = val; }
+ * TreeNode(int val, TreeNode left, TreeNode right) {
+ * this.val = val;
+ * this.left = left;
+ * this.right = right;
+ * }
+ * }
+ */
+class Solution {//maha brute force
+    public boolean isSymmetric(TreeNode root) {
+        List<Integer> li1 = new ArrayList<>();
+        List<Integer> li2 = new ArrayList<>();
+        inorder1(root.left, li1);
+        inorder2(root.right, li2);
+    
+        if(li1.size() != li2.size())
+        return false;
+        for (int i = 0; i < li2.size(); i++) {
+            if (li1.get(i) != li2.get(i))
+                return false;
+        }
+        return true;
+    }
+    // do what you see - all eyes on me
+    private void inorder1(TreeNode root, List<Integer> li) {
+        if (root == null) {
+            li.add(-1);
+            return;
+        }
+
+        li.add(root.val);
+        inorder1(root.left, li);
+        inorder1(root.right, li);
+    }
+    // do what you see - all eyes on me pov leetcode diagram
+    private void inorder2(TreeNode root, List<Integer> li) {
+        if (root == null) {
+            li.add(-1);
+            return;
+        }
+
+        li.add(root.val);
+        inorder2(root.right, li);
+        inorder2(root.left, li);
+    }
+}
