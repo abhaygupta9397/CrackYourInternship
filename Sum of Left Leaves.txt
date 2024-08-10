@@ -1,0 +1,17 @@
+class Solution{
+    int sum = 0;
+    public int sumOfLeftLeaves(TreeNode root){
+        helper(root,false);
+        return sum;
+    }
+    void helper(TreeNode root , Boolean isLeft){
+        if(root == null) 
+        return;
+
+        if(isLeft && root.left == null && root.right == null)
+        sum += root.val;
+
+        helper(root.left,true);
+        helper(root.right,false);
+    }
+}

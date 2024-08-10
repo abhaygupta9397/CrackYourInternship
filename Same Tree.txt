@@ -1,0 +1,32 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {// abb shuru ho raha hai recursion ka investigation 
+    public boolean isSameTree(TreeNode p, TreeNode q) {
+        //matlab ki shaare 21 goon milte hai 
+        if(p == null && q == null)
+        return true;  // inhe tho kabool hai Mubarak ho!
+
+        if(p == null || q == null)
+        return false; // ek ko kabool nahi hai Yha allaha ! Heat attack
+
+        if(p.val != q.val)
+        return false; // dono ki na hai  Mukadama samapth
+        
+        // ye adalat dono ki family se unki marji janana chahiti hai ?
+        return isSameTree(p.left,q.left) && isSameTree(p.right,q.right);
+        
+    }
+}
