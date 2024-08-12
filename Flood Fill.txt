@@ -1,0 +1,22 @@
+class Solution {
+    public int[][] floodFill(int[][] image, int sr, int sc, int color) {
+        int p = image[sr][sc];
+        if(p != color) 
+        dfs(image,sr,sc,color,p);
+        return image;
+    }
+    public void dfs(int [][] image , int sr , int sc , int color,int p){
+        //no more dfs allowed
+        if(sr < 0 || sc < 0 || sr >= image.length || sc >= image[0].length || image[sr][sc] != p)
+        return;
+        
+        //fill the required color
+        image[sr][sc] = color;
+    
+        // check for the rest of the 4-directionally blocks
+        dfs(image , sr + 1 , sc ,color,p);
+        dfs(image , sr - 1, sc ,color,p);
+        dfs(image , sr , sc + 1 ,color,p);
+        dfs(image , sr , sc - 1 ,color,p);
+    }
+}
