@@ -1,0 +1,14 @@
+class Solution {// 1-d dp
+    public int numTrees(int n) {
+        int dp[] = new int[n+1]; // 1 d DP mata
+
+        dp[0] = dp[1] = 1;
+
+        for(int i = 2; i <= n; i++){ //find out catlan number from 2
+            for(int j = 0; j < i; j++) // it shows we just need past catlan numbers
+            dp[i] += dp[j] * dp[i - j - 1]; // we take the sum of all the product terms
+        }
+
+        return dp[n]; // finally we reached to our answer
+    }
+}
