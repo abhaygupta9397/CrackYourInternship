@@ -1,0 +1,33 @@
+
+
+// User function Template for Java
+
+class Solution {
+    public int sumK(Node root, int k) {
+        // code here
+        List<Integer> sum = new LinkedList<>(); // maintain the sum 
+        int ans[] = {0};
+        fun(root,k,sum,ans);
+        return ans[0];
+    }
+    public void fun(Node root , int k ,List<Integer> sum , int[] ans){
+        if(root == null)
+        return;
+         //
+         sum.add(root.data); // insert the root value
+
+        fun(root.left,k,sum,ans);  // explore the left and right
+        fun(root.right,k,sum,ans);
+        
+        int s = 0;
+        for(int i = sum.size() - 1 ; i >= 0; i--){
+            s = s + sum.get(i).intValue();
+            if(s == k)   // check if sum == k
+            ans[0]++;
+        }
+        
+        sum.remove(sum.size()-1);   // remove the node value
+        
+        
+    }
+}

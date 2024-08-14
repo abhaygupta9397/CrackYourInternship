@@ -1,0 +1,49 @@
+/**
+ * Definition for a binary tree node.
+ * public class TreeNode {
+ *     int val;
+ *     TreeNode left;
+ *     TreeNode right;
+ *     TreeNode() {}
+ *     TreeNode(int val) { this.val = val; }
+ *     TreeNode(int val, TreeNode left, TreeNode right) {
+ *         this.val = val;
+ *         this.left = left;
+ *         this.right = right;
+ *     }
+ * }
+ */
+class Solution {//O(N) 
+    public int maxPathSum(TreeNode root) {
+        int ans[] = {Integer.MIN_VALUE};
+        fun(root,ans);
+        return ans[0];
+    }
+    public int fun(TreeNode root , int[] ans){
+        if(root == null)
+        return 0;          
+
+        int l = fun(root.left , ans);     // what is max at left
+        int r = fun(root.right , ans);    // what is min at right
+         //case 1 :
+        int got_it = l + r + root.val;    // path is through the root
+        // case 2 :
+        int support = Math.max(l , r) + root.val; // just a supporting node
+        //case 3:
+        int may_be_i = root.val; // tail of the path (max)
+        
+        // update the answer to the max possible
+        ans[0] = Math.max(ans[0] , support);
+        ans[0] = Math.max(ans[0] , got_it);
+        ans[0] = Math.max(ans[0] , may_be_i);
+        
+        // supply the max to the above nodes to figure out the max
+        return Math.max(support , may_be_i);
+    }
+}
+
+//long story short 
+// we got three options
+//you got the answer already : left + right + root.val
+//you are part of the answer : max( left , right) + root.val
+// just root is possible if left and right < 0 

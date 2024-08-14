@@ -1,0 +1,28 @@
+class Solution { // O(N) : space
+    public void flatten(TreeNode root) {
+        ArrayList<TreeNode> keep = new ArrayList<>();
+        preOrder(root,keep);
+
+        TreeNode temp = root;
+
+        for(int i = 1; i < keep.size(); i++){
+            temp.right = keep.get(i);
+            temp = temp.right;
+        }
+        
+
+    }
+    public void preOrder(TreeNode root,ArrayList<TreeNode> keep){
+        if(root == null)
+        return;
+
+        keep.add(root);
+        preOrder(root.left,keep); // explore it
+        root.left = null;     // break the link
+        preOrder(root.right,keep);
+        root.right = null;
+    }
+}
+// thought process
+// keep the node in arraylist
+// reconfigure the root.right from the arraylist
