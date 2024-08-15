@@ -1,0 +1,20 @@
+class Solution {
+    int visited_level = -1; // all recursive calls will have the reflected value (pass by reference)
+    public List<Integer> rightSideView(TreeNode root) {
+        List<Integer> ans = new ArrayList<>();
+        fun(root,ans,0);
+        return ans;
+    }
+    public void fun(TreeNode root , List<Integer> ans , int curr_level){
+        if(root == null)
+        return;
+
+        if(curr_level > visited_level){ // first node that is unvisited in a level is the answer
+            ans.add(root.val);
+            visited_level = curr_level;
+        }
+        //for right view go for the right of root first
+        fun(root.right,ans,curr_level+1);
+        fun(root.left,ans,curr_level+1);
+    }
+}

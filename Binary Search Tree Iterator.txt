@@ -1,0 +1,36 @@
+class BSTIterator {
+    int indx = 0;
+    int l = 0;
+    List<Integer> li  = new ArrayList<>();
+    void inOrder(TreeNode root){
+        if(root == null)
+        return;
+        inOrder(root.left);
+        li.add(root.val);
+        inOrder(root.right);
+
+    }
+    public BSTIterator(TreeNode root) {
+        inOrder(root);
+        l = li.size();
+        indx = -1;
+    }
+    
+    public int next() {
+        indx++;
+        return li.get(indx);
+    }
+    
+    public boolean hasNext() {
+        if(indx+1 < l)
+        return true;
+        return false;
+    }
+}
+
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator obj = new BSTIterator(root);
+ * int param_1 = obj.next();
+ * boolean param_2 = obj.hasNext();
+ */
