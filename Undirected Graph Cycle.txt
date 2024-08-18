@@ -1,0 +1,46 @@
+
+
+class Solution {
+    // Function to detect cycle in an undirected graph.
+    public boolean isCycle(int V, ArrayList<ArrayList<Integer>> adj) {
+        // Code here
+        HashSet<Integer> visited = new HashSet<>();
+        for(int i = 0; i < V; i++){//for disconnected graph
+            if(!visited.contains(i) && dfs(i,adj,visited)) 
+            return true;
+        }
+        return false;
+        
+    }
+    public boolean dfs(int vertex ,ArrayList<ArrayList<Integer>> adj,HashSet<Integer> visited ){
+        Queue<Pair> q = new ArrayDeque<>();
+        q.add(new Pair(vertex,-1));
+        visited.add(vertex);
+        while(!q.isEmpty()){
+            int curr = q.peek().first;
+            int parent= q.peek().second;
+            q.poll();
+            
+ for(int i = 0; i < adj.get(curr).size();i++){
+     int next = adj.get(curr).get(i);
+                if(next == parent)
+                continue;  // skip the parent node
+                
+                if(visited.contains(next))
+                return true; //  two times fire cycle caught
+                
+                visited.add(next); // mark this visited
+               q.offer(new Pair(next,curr)); // add it as : 
+            }
+        }
+        return false;
+    }
+}
+class Pair{
+    int first;
+    int second;
+    public Pair(int x , int y){
+        this.first = x;
+        this.second = y;
+    }
+}

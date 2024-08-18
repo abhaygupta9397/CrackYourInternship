@@ -1,0 +1,93 @@
+
+
+/*Complete the function below*/
+
+
+class Solution // dfs visuals toplogical sort
+{
+    //Function to return list containing vertices in Topological order. 
+    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+    {
+        // add your code here
+        int ans[] = new int[V];
+        Stack<Integer> stk = new Stack<>();
+        boolean visited[] = new boolean[V];
+        for(int i = 0; i < V; i++){
+            if(!visited[i])
+            dfs(i,adj,visited,stk);
+            
+        }
+        int i = 0;
+        while(!stk.isEmpty()){
+            ans[i++] = stk.pop();
+        }
+        return ans;
+    }
+    static void dfs(int vertex,ArrayList<ArrayList<Integer>> adj,boolean visited[],Stack<Integer> stk){
+        visited[vertex] = true;
+        // first explore all
+        for(int i = 0; i < adj.get(vertex).size(); i++){
+            int new_vertex = adj.get(vertex).get(i);
+            if(!visited[new_vertex])
+            dfs(new_vertex,adj,visited,stk);
+        }
+        // since all have come so now put vertex
+        stk.push(vertex);
+    }
+}
+
+
+
+//and version 2
+
+
+
+/*Complete the function below*/
+//KHAN"S ALGORITHM - visuals - terminals nodes are disappearing
+// Common Sense - take nodes with no incomming edges
+// 1) prepare the incomming vertex for all the nodes
+// 2) make a queue to have o incomming vertex nodes
+// 3) pop them and take them as answers 
+// 4) and also decrese the immediate child nodes by one 
+// 5) as soon as you get child node reduces to 0 add it to the queue
+class Solution
+{
+    //Function to return list containing vertices in Topological order. 
+    static int[] topoSort(int V, ArrayList<ArrayList<Integer>> adj) 
+    {
+        // add your code here
+        //Khan's Algorithm
+        int ans[] = new int[V];
+        //create degree array
+        int deg[] = new int[V];
+        
+        for(int i = 0; i < V; i++)
+       { 
+           for(int j = 0; j < adj.get(i).size(); j++)
+            deg[adj.get(i).get(j)]++;
+       }
+       
+       Queue<Integer> q  = new ArrayDeque<>(); // terminal nodes
+       //add all the terminal no incomming nodes into the queue
+       for(int i = 0; i < V; i++){
+           if(deg[i] == 0){
+               q.add(i);
+           }
+       }
+       
+       // 
+       int p = 0;
+       while(!q.isEmpty()){
+           int ele = q.poll();
+           ans[p++] = ele;  // keep on taking the terminals and remove the immediate child nodes degree
+           for(int i = 0; i < adj.get(ele).size(); i++){
+               deg[adj.get(ele).get(i)]--;     //decrese the neighbour degree
+               if(deg[adj.get(ele).get(i)] == 0)
+               q.offer(adj.get(ele).get(i));
+           }
+       }
+       
+       return ans;
+       
+    }
+}
