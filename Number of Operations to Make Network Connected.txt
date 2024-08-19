@@ -1,0 +1,53 @@
+class Solution { // easy hai
+    public int makeConnected(int n, int[][] connections) {
+        int wires = connections.length;
+        if (wires < n - 1)
+            return -1; // not possible to connect with given no of wires
+
+        // lets create the adjacency list first
+        HashMap<Integer, ArrayList<Integer>> adj = new HashMap<>();
+        adjacency(connections, adj);
+
+        boolean visited[] = new boolean[n];
+        int computer_count = 0;
+        for (int i = 0; i < n; i++) {
+            if (!visited[i]) {
+               // System.out.println(i);
+                computer_count++;
+                dfs(i, adj, visited);
+            }
+        }
+        return computer_count - 1;
+
+    }
+
+    public void dfs(int vertex, HashMap<Integer, ArrayList<Integer>> adj, boolean visited[]) {
+        visited[vertex] = true;
+       
+       if(!adj.containsKey(vertex))
+       return;
+       
+       for(int i = 0; i < adj.get(vertex).size(); i++){
+        int new_vertex = adj.get(vertex).get(i);
+        if(!visited[new_vertex])
+        dfs(new_vertex,adj,visited);
+       }
+        
+        
+    }
+
+    public void adjacency(int arr[][], HashMap<Integer, ArrayList<Integer>> adj) {
+        for (int i = 0; i < arr.length; i++) {
+            if (!adj.containsKey(arr[i][0])) // uni directed graph
+                adj.put(arr[i][0], new ArrayList<>());
+
+            adj.get(arr[i][0]).add(arr[i][1]);
+
+            if(!adj.containsKey(arr[i][1]))  // undirected now aRb and bRa
+            adj.put(arr[i][1],new ArrayList<>());
+
+               adj.get(arr[i][1]).add(arr[i][0]);
+        }
+
+    }
+}

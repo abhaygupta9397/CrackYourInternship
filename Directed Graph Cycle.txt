@@ -1,0 +1,81 @@
+//solution 1
+class Solution {
+    //This solution is presented by - Abhay Gupta #TheCodeStoryToNight
+    // Function to detect cycle in a directed graph.
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        // code here
+        boolean visited[] = new boolean[V]; // time saving technique
+        boolean path[] = new boolean[V]; // path of dfs in real time
+        
+        for(int i = 0; i < V; i++){ // for disconnected graph
+            if(!visited[i] && dfs(i,adj,visited,path))
+            return true;
+        }
+        return false;
+    }
+    public boolean dfs(int vertex,ArrayList<ArrayList<Integer>> adj,boolean visited[],boolean path[] ){
+        visited[vertex] = true; // mark it as useless node
+        path[vertex] = true;   // mark it as travelled path
+        
+        for(int i = 0 ; i < adj.get(vertex).size(); i++){
+            int new_vertex = adj.get(vertex).get(i);
+            
+            //if my current dfs already visited this node congratulations cycle is detected
+            if(path[new_vertex])
+            return true;
+            
+            //it is in visited list means useless path skip this  there is no cycle ahead of it
+            if(visited[new_vertex])
+            continue;
+            
+            // now if it is not visited yet go and explore it
+           if( dfs(new_vertex,adj,visited,path))
+            return true;
+        }
+        
+        //mark the current node as unvisited why ? because let other try to catch circle in it path 
+        path[vertex] = false;
+        
+        return false;
+    }
+}
+
+// solution - 2
+class Solution {
+    // Function to detect cycle in a directed graph.
+    public boolean isCyclic(int V, ArrayList<ArrayList<Integer>> adj) {
+        // code here
+     
+        //This Code is presented by Abhay Gupta by Kahn's Algorithm   
+        // 1 : calculate the indegree of all nodes
+        int indegre[] = new int[V];
+        for(int i = 0; i < V; i++){
+            for(int j  = 0; j < adj.get(i).size(); j++){
+                indegre[adj.get(i).get(j)]++;
+            }
+        }
+        
+        // 2 : insert all o degree vertex into the queue
+        ArrayDeque<Integer> q = new ArrayDeque<>();
+        for(int i = 0; i < V; i++){
+            if(indegre[i] == 0)
+            q.offer(i);
+        }    
+        
+        // 3 : pluck out the 0 degree vertex
+        int count = 0; // nunber of o indegree nodes
+        while(!q.isEmpty()){
+            int vertex = q.poll();
+            count++;
+            for(int i = 0 ; i < adj.get(vertex).size() ; i++){
+                int neighbour = adj.get(vertex).get(i);
+                indegre[neighbour]--;
+                if(indegre[neighbour] == 0)
+                q.add(neighbour);
+            }
+        }
+        
+        //because of dead lock in case of cycle topological sort can not be fond degre != 0
+        return count!=V; // if it is a cycle then it will not be V
+    }
+}
