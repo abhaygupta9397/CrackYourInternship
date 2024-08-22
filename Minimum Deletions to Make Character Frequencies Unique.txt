@@ -1,0 +1,21 @@
+class Solution {
+    public int minDeletions(String s) {
+        HashMap<Character,Integer> count = new HashMap<>();
+        int del = 0;
+        HashSet<Integer> used = new HashSet<>(); // cant take them 
+        
+        //getting the frequency
+        for(char c : s.toCharArray()){
+            count.put(c,count.getOrDefault(c,0)+1);
+        }
+
+        for (int freq : count.values()){
+            while(freq > 0 && used.contains(freq)){
+                freq--;
+                del++;
+            }
+            used.add(freq);
+        }
+        return del;
+    }
+}
