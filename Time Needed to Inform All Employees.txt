@@ -1,0 +1,44 @@
+class Solution {//Day : 40
+    public int numOfMinutes(int n, int headID, int[] manager, int[] informTime) {
+        HashMap<Integer, ArrayList<Integer>> map = new HashMap<>();
+        //adjacency list : manager -> employers
+        for (int p = 0; p < n; p++) {
+            if (!map.containsKey(manager[p]))
+                map.put(manager[p], new ArrayList<Integer>());
+            map.get(manager[p]).add(p);
+        }
+
+        Queue<info> q = new LinkedList<>();
+        q.offer(new info(headID, 0));
+        int ans = 0;
+        int visited[] = new int[n];
+        visited[headID] = 1;
+        while (!q.isEmpty()) {
+            info in = q.poll();
+            int emp = in.emp;
+            int time = in.time;
+
+            if (!map.containsKey(emp))
+                continue;
+            for (int i = 0; i < map.get(emp).size(); i++) {
+                if (visited[map.get(emp).get(i)] == 0) {
+                    q.offer(new info(map.get(emp).get(i), time + informTime[emp]));
+                    visited[map.get(emp).get(i)] = 1;
+                    //take max time along the all possible paths
+                    ans = Math.max(ans, time + informTime[emp]);
+                } 
+            }
+        }
+        return ans;
+    }
+}
+
+class info {
+    int emp;
+    int time;
+
+    public info(int a, int b) {
+        this.emp = a;
+        this.time = b;
+    }
+}
