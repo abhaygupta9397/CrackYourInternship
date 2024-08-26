@@ -1,0 +1,22 @@
+class Solution {// feels like climbing stairs
+    public int uniquePaths(int m, int n) {
+        int dp[][] = new int[m][n];
+        return dfs(m,n,m-1,n-1,dp);
+
+    }
+    public int dfs(int m,int n, int i, int j, int dp[][]){
+       if(i < 0 || j < 0)
+       return 0;
+
+        if(i == 0 && j == 0)
+        return dp[i][j] = 1;
+
+        if(dp[i][j] != 0)
+        return dp[i][j];
+
+        int top = dfs(m,n,i-1,j,dp);
+        int left = dfs(m,n,i,j-1,dp);
+
+        return dp[i][j] = top + left; // it reminds me of climbling stairs problem
+    }
+}
