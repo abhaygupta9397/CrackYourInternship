@@ -1,0 +1,60 @@
+class Solution {
+    public void solveSudoku(char[][] board) {
+        helper(board , 0);
+    }
+    
+    boolean helper(char[][] board , int i){
+        if(i == 81)
+        return true; 
+        
+        //cordinate of cell 
+        int x = i / 9;
+        int y = i % 9;
+   
+        //already filled skip it
+        if(board[x][y] != '.'){ 
+            return helper(board , i + 1);
+        }
+        else{
+            for(char val = '1'; val <= '9'; val++){
+                board[x][y] = val;
+                // valid or invalid and will future calls be effected ?
+                if(check(board , i) && helper(board, i + 1)) {
+                    return true;
+                }
+                board[x][y] = '.'; //revert back to '.'
+            }
+        }
+        return false;
+    }
+
+    boolean check(char[][] board , int i){
+        
+        int x = i / 9;
+        int y = i % 9;
+
+        char val = board[x][y];
+        
+        //is row - invalid ?
+        for(int row = 0; row < 9; row++){
+            if(row != x && board[row][y] == val)
+            return false;
+        }
+        //is column - invalid ?
+        for(int col = 0; col < 9; col++){
+            if(col != y && board[x][col] == val)
+            return false;
+        }
+        // is grid invalid ?
+        for(int i2 = (x / 3)*3; i2 < (x / 3)*3 + 3; i2++){
+            for(int j2 = (y / 3)*3; j2 < (y / 3)*3 + 3; j2++){
+                if(i2 == x && j2 == y)
+                continue;
+                if(board[i2][j2] == board[x][y])
+                return false;
+            }
+        }
+        // it is valid '.' --> 'val'
+        return true;
+    }
+}
