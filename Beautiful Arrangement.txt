@@ -1,0 +1,23 @@
+class Solution {// brute force was brutal
+        int count = 0;
+    public int countArrangement(int n) {
+    if(n == 0) return 0;
+    fun(n,1,new int[n+1]);
+    return count;
+        
+    }
+    public void fun(int n , int pos,int [] used){
+        if(pos > n)
+        {
+            count++;
+            return;
+        }
+        for(int i = 1; i <= n; i++){
+            if(used[i] == 0 && (i % pos == 0 || pos % i == 0)){
+                used[i] = 1;
+                fun(n,pos+1,used);
+                used[i] = 0;
+            }
+        }
+    }
+}

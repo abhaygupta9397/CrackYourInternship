@@ -1,0 +1,20 @@
+class Solution {
+    public List<List<Integer>> subsetsWithDup(int[] nums) {
+        Arrays.sort(nums);
+        List<List<Integer>> ans = new ArrayList<>();
+        fun(nums,0,ans,new ArrayList<>());
+        return ans;
+    }
+    public void fun(int arr[] , int indx , List<List<Integer>>ans,List<Integer> li){
+        ans.add(new ArrayList<>(li));
+        for(int i = indx; i < arr.length; i++){
+            // take repetions of present index only
+        if (i > indx && arr[i] == arr[i - 1]) {
+                continue;
+            }
+            li.add(arr[i]);
+            fun(arr,i+1,ans,li);
+            li.remove(li.size() - 1);
+        }
+    }
+}

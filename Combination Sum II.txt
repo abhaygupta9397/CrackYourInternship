@@ -1,0 +1,29 @@
+class Solution {
+    List<List<Integer>> ans = new ArrayList<>();
+    public List<List<Integer>> combinationSum2(int[] candidates, int target) {
+        Arrays.sort(candidates);
+        fun(candidates,0,0,target,new ArrayList<>());
+        return ans;
+    }
+    public void fun(int arr[] , int indx , int sum , int tar , List<Integer> li){
+        if(sum > tar)
+       {
+          return;
+       }
+        if(sum == tar){
+            // if(!ans.contains(li)) - time limit exceeded - O(N)
+            ans.add(new ArrayList<>(li));
+            return;
+        }
+        for(int i = indx; i < arr.length; i++){
+            //can't get this next line
+            if (i > indx && arr[i] == arr[i - 1]) {
+                continue;
+            }
+            li.add(arr[i]);
+            fun(arr,i+1,sum+arr[i],tar,li);
+            li.remove(li.size() - 1);
+        }
+
+    }
+}
