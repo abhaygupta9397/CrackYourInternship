@@ -1,0 +1,48 @@
+class solve {
+    // Function to determine if graph can be coloured with at most M colours
+    // such that no two adjacent vertices of graph are coloured with the same colour.
+    public boolean graphColoring(boolean graph[][], int m, int n) {
+        // Initialize color array with -1
+        int color[] = new int[n];
+        for (int i = 0; i < n; i++)
+            color[i] = -1;
+        
+        // Check for each node if it can be colored
+        for (int i = 0; i < n; i++) {
+            if (color[i] == -1 && !dfs(i, color, graph, m, n))
+                return false;
+        }
+        return true;
+    }
+    
+    boolean dfs(int node, int color[], boolean graph[][], int m, int n) {
+        for (int i = 0; i < m; i++) {
+            boolean isPossible = true;
+            for (int j = 0; j < n; j++) {
+                if (graph[node][j] && color[j] == i) {
+                    isPossible = false;
+                    break;
+                }
+            }
+            if (!isPossible)
+                continue;
+            
+            color[node] = i;
+            
+            isPossible = true;
+            for (int j = 0; j < n; j++) {
+                if (graph[node][j] && color[j] == -1) {
+                    if (!dfs(j, color, graph, m, n)) {
+                        isPossible = false;
+                        break;
+                    }
+                }
+            }
+            if (isPossible)
+                return true;
+            
+            color[node] = -1;
+        }
+        return false;
+    }
+}
